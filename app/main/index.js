@@ -20,8 +20,8 @@ const installExtensions = async () => {
 };
 
 crashReporter.start({
-  productName: 'YourName',
-  companyName: 'YourCompany',
+  productName: 'Henri Pietila',
+  companyName: 'Henripro',
   submitURL: 'https://your-domain.com/url-to-submit',
   uploadToServer: false,
 });
