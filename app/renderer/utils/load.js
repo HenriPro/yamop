@@ -15,28 +15,28 @@ function readFilesInDir(dir, dispatch)  {
             fs.stat(filePath, (err, stat) => {
                 if (stat && stat.isDirectory()) {
                     readFilesInDir(filePath, dispatch);
-                    return;
                 }
-
-                jsmediatags.read(filePath, {
-                    onSuccess: function (tag) {
-                        // console.log(tag);
-                        const song = 
-                        {
-                            filePath,
-                            fileName : file,
-                            artist: tag.tags.artist,
-                            title: tag.tags.title,
-                            album: tag.tags.album,
-                            track: tag.tags.track,
-                            genre: tag.tags.genre
+                else if (stat && stat.isFile() && file.match(/\.(mp3|mp4|ogg|flac|acc|wav|)$/i)) {
+                    jsmediatags.read(filePath, {
+                        onSuccess: function (tag) {
+                            // console.log(tag);
+                            const song = 
+                            {
+                                filePath,
+                                fileName : file,
+                                artist: tag.tags.artist,
+                                title: tag.tags.title,
+                                album: tag.tags.album,
+                                track: tag.tags.track,
+                                genre: tag.tags.genre
+                            }
+                            dispatch(loadSong.loadSong(song))
+                        },
+                        onError: function (error) {
+                            console.log(':(', error.type, error.info, filePath);
                         }
-                        dispatch(loadSong.loadSong(song))
-                    },
-                    onError: function (error) {
-                        console.log(':(', error.type, error.info, filePath);
-                    }
-                });
+                    });
+                }
             });
         });
     });
