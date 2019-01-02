@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import SongList from './SongList';
@@ -29,23 +29,26 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
   
+class LoadDirs extends Component {
 
-function LoadDirs(props) {
-    if (!props.library.length) {
-        dialog.showOpenDialog({
-            title:"Please pick a folder where you have music",
-            properties: ["openDirectory"]},
-            (filePath)=> {
-                props.setLibrary(filePath);
-        });
-    } else {
-        setTimeout(() => readFilesInDir(props.library[0], props.loadSong),100)
-       
+    componentDidMount() {
+        if (!this.props.library.length) {
+            dialog.showOpenDialog({
+                title:"Please pick a folder where you have music",
+                properties: ["openDirectory"]},
+                (filePath)=> {
+                    this.props.setLibrary(filePath);
+            });
+        }
+        setTimeout(() => readFilesInDir(this.props.library[0], this.props.loadSong),0);
     }
-
-    return (
-        <SongList></SongList>
-    );
+    
+    render() {
+        return (
+            <SongList></SongList>
+        );
+    }
+   
 
 }
 

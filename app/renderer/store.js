@@ -42,7 +42,7 @@ export default function configureStore(initialState, routerHistory) {
     return compose;
   })();
 
-  const enhancer = composeEnhancers(applyMiddleware(...middlewares), persistState('musicDir'));
+  const enhancer = composeEnhancers(applyMiddleware(...middlewares), persistState('library'));
   const rootReducer = combineReducers(reducers);
 
   return createStore(rootReducer, initialState, enhancer);
