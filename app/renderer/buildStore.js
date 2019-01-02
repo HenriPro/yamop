@@ -9,7 +9,11 @@ const syncHistoryWithStore = (store, history) => {
 };
 
 const initialState = {
-  songs: []
+  songs: [],
+  search: {
+    searchValue: "",
+    searchTypeValue: "searchAll",
+  }
 };
 export const routerHistory = createMemoryHistory();
 export const store = configureStore(initialState, routerHistory);

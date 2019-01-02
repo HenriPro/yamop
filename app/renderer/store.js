@@ -5,8 +5,11 @@ import thunk from 'redux-thunk';
 
 import user from './reducers/user';
 import songs from './reducers/songs'
+import search from './reducers/search';
+
 import userActions from './actions/user';
 import songsActions from './actions/songs';
+import searchActions from './actions/search';
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
@@ -14,6 +17,7 @@ export default function configureStore(initialState, routerHistory) {
   const actionCreators = {
     ...userActions,
     ...songsActions,
+    ...searchActions,
     push,
   };
 
@@ -21,6 +25,7 @@ export default function configureStore(initialState, routerHistory) {
     router: connectRouter(routerHistory),
     user,
     songs,
+    search,
   };
 
   const middlewares = [thunk, router];

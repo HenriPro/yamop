@@ -20,16 +20,21 @@ function readFilesInDir(dir, dispatch)  {
 
                 jsmediatags.read(filePath, {
                     onSuccess: function (tag) {
-                        console.log(tag);
-                        const song = {}
-                        song.fileName = file;
-                        song.path = filePath;
-                        song.artist = tag.tags.artist;
-                        song.title = tag.tags.title
+                        // console.log(tag);
+                        const song = 
+                        {
+                            filePath,
+                            fileName : file,
+                            artist: tag.tags.artist,
+                            title: tag.tags.title,
+                            album: tag.tags.album,
+                            track: tag.tags.track,
+                            genre: tag.tags.genre
+                        }
                         dispatch(loadSong.loadSong(song))
                     },
                     onError: function (error) {
-                        console.log(':(', error.type, error.info);
+                        console.log(':(', error.type, error.info, filePath);
                     }
                 });
             });

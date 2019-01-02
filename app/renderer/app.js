@@ -17,14 +17,16 @@ const syncHistoryWithStore = (store, history) => {
 };
 
 const initialState = {
-  songs: []
+  songs: [],
+  search: {
+    searchValue: "",
+    searchTypeValue: "searchAll",
+  }
 };
 const routerHistory = createMemoryHistory();
 const store = configureStore(initialState, routerHistory);
 syncHistoryWithStore(store, routerHistory);
-console.log('huh', store.getState())
-readFilesInDir('/home/henri/Music/Bloodbath - The Arrow of Satan is Drawn (Album) 2018', store.dispatch)
-
+readFilesInDir('/home/henri/Music', store.dispatch)
 
 
 const rootElement = document.querySelector(document.currentScript.getAttribute('data-container'));
