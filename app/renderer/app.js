@@ -6,6 +6,9 @@ import { createMemoryHistory } from 'history';
 import routes from './routes';
 import configureStore from './store';
 
+import readFilesInDir  from './utils/load';
+
+
 const syncHistoryWithStore = (store, history) => {
   const { router } = store.getState();
   if (router && router.location) {
@@ -13,10 +16,16 @@ const syncHistoryWithStore = (store, history) => {
   }
 };
 
-const initialState = {};
+const initialState = {
+  songs: []
+};
 const routerHistory = createMemoryHistory();
 const store = configureStore(initialState, routerHistory);
 syncHistoryWithStore(store, routerHistory);
+console.log('huh', store.getState())
+readFilesInDir('/home/henri/Music/Bloodbath - The Arrow of Satan is Drawn (Album) 2018', store.dispatch)
+
+
 
 const rootElement = document.querySelector(document.currentScript.getAttribute('data-container'));
 
@@ -26,3 +35,5 @@ ReactDOM.render(
   </Provider>,
   rootElement,
 );
+
+

@@ -4,19 +4,23 @@ import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
 
 import user from './reducers/user';
+import songs from './reducers/songs'
 import userActions from './actions/user';
+import songsActions from './actions/songs';
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
 
   const actionCreators = {
     ...userActions,
+    ...songsActions,
     push,
   };
 
   const reducers = {
     router: connectRouter(routerHistory),
     user,
+    songs,
   };
 
   const middlewares = [thunk, router];
@@ -29,8 +33,9 @@ export default function configureStore(initialState, routerHistory) {
     return compose;
   })();
 
-  const enhancer = composeEnhancers(applyMiddleware(...middlewares), persistState());
+  const enhancer = composeEnhancers(applyMiddleware(...middlewares), persistState('musicDir'));
   const rootReducer = combineReducers(reducers);
 
   return createStore(rootReducer, initialState, enhancer);
 }
+
