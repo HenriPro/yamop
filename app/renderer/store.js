@@ -6,10 +6,12 @@ import thunk from 'redux-thunk';
 import user from './reducers/user';
 import songs from './reducers/songs'
 import search from './reducers/search';
+import focus from './reducers/inFocus'
 
 import userActions from './actions/user';
 import songsActions from './actions/songs';
 import searchActions from './actions/search';
+import focusActions from './reducers/inFocus';
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
@@ -18,6 +20,7 @@ export default function configureStore(initialState, routerHistory) {
     ...userActions,
     ...songsActions,
     ...searchActions,
+    ...focusActions,
     push,
   };
 
@@ -26,6 +29,7 @@ export default function configureStore(initialState, routerHistory) {
     user,
     songs,
     search,
+    focus,
   };
 
   const middlewares = [thunk, router];

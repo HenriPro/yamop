@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import ReactTable from "react-table";
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import search from '../utils/search';
+import focusActions from '../actions/inFocus'
 
 const mapStateToProps = (state) => {
     return {
@@ -12,11 +14,20 @@ const mapStateToProps = (state) => {
 };
 
 
+const mapDispatchToProps = (dispatch) => {
+    const focus = bindActionCreators(focusActions, dispatch);
+    return {
+        createFocus: (data) => {
+            focus.createFocus(data);
+        },
+    }
+}
+
 class SongList extends Component {
 
     whatToShow() {
         if (this.props.searchValue.length > 0) {
-           return search(this.props.songs, this.props.searchValue, this.props.searchTypeValue);
+            return search(this.props.songs, this.props.searchValue, this.props.searchTypeValue);
         }
         return this.props.songs;
     }
@@ -34,7 +45,19 @@ class SongList extends Component {
                         { Header: "Genre", accessor: "genre" },
                         { Header: "Track", accessor: "track", maxWidth: 100 },
                         ]}
-                        data={this.whatToShow()}>
+                        data={this.whatToShow()}
+                        getTdProps={(state, rowInfo) => {
+                            return {
+                                onClick: (e, handleOriginal) => {
+                                    console.log("It was in this row:", rowInfo.original.filePath);
+                                    this.props.createFocus(rowInfo.original);
+                                    if (handleOriginal) {
+                                        handleOriginal();
+                                    }
+                                }
+                            };
+                        }}
+                    >
                     </ReactTable>
                 }
 
@@ -44,5 +67,4 @@ class SongList extends Component {
 
 }
 
-
-export default connect(mapStateToProps)(SongList)
+export default connect(mapStateToProps, mapDispatchToProps)(SongList)
