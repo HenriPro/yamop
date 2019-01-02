@@ -1,11 +1,9 @@
-import loadSong from '../actions/songs';
 const fs = require('fs');
 const jsmediatags = require("jsmediatags");
 const path = require('path');
 
 
-
-function readFilesInDir(dir, dispatch)  {
+function readFilesInDir(dir, loadSong)  {
     fs.readdir(dir, { encoding: 'utf8', withFileTypes: true }, (err, files) => {
         if (err) throw err;
 
@@ -14,7 +12,7 @@ function readFilesInDir(dir, dispatch)  {
 
             fs.stat(filePath, (err, stat) => {
                 if (stat && stat.isDirectory()) {
-                    readFilesInDir(filePath, dispatch);
+                    readFilesInDir(filePath, loadSong);
                 }
                 else if (stat && stat.isFile() && file.match(/\.(mp3|mp4|ogg|flac|acc|wav|)$/i)) {
                     jsmediatags.read(filePath, {
@@ -30,7 +28,7 @@ function readFilesInDir(dir, dispatch)  {
                                 track: tag.tags.track,
                                 genre: tag.tags.genre
                             }
-                            dispatch(loadSong.loadSong(song))
+                            loadSong(song)
                         },
                         onError: function (error) {
                             console.log(':(', error.type, error.info, filePath);

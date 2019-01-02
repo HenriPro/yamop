@@ -38,7 +38,7 @@ class SongList extends Component {
             <div>
                 {this.props.songs.length > 0 &&
                     <ReactTable
-                        showPageSizeOptions={false}
+                        showPageSizeOptions={true}
                         columns={[{ Header: "Title", accessor: "title" },
                         { Header: "Artist", accessor: "artist" },
                         { Header: "Album", accessor: "album" },

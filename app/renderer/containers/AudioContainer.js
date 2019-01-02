@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import AudioPlayer from '../components/AudioPlayer';
 
+
 const mapStateToProps = (state) => {
     return {
         focus: state.focus,

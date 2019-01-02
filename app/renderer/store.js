@@ -3,33 +3,33 @@ import { connectRouter, routerMiddleware, push } from 'connected-react-router';
 import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
 
-import user from './reducers/user';
 import songs from './reducers/songs'
 import search from './reducers/search';
 import focus from './reducers/inFocus'
+import library from './reducers/library'
 
-import userActions from './actions/user';
 import songsActions from './actions/songs';
 import searchActions from './actions/search';
-import focusActions from './reducers/inFocus';
+import focusActions from './actions/inFocus';
+import libraryActions from './actions/library'
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
 
   const actionCreators = {
-    ...userActions,
     ...songsActions,
     ...searchActions,
     ...focusActions,
+    ...libraryActions,
     push,
   };
 
   const reducers = {
     router: connectRouter(routerHistory),
-    user,
     songs,
     search,
     focus,
+    library,
   };
 
   const middlewares = [thunk, router];
