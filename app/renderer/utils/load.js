@@ -3,7 +3,12 @@ const jsmediatags = require("jsmediatags");
 const path = require('path');
 
 
-function readFilesInDir(dir, loadSong)  {
+onmessage = function(e) {
+    readFilesInDir(e.data);  
+}
+
+
+function readFilesInDir(dir)  {
     fs.readdir(dir, { encoding: 'utf8', withFileTypes: true }, (err, files) => {
         if (err) throw err;
 
@@ -12,12 +17,11 @@ function readFilesInDir(dir, loadSong)  {
 
             fs.stat(filePath, (err, stat) => {
                 if (stat && stat.isDirectory()) {
-                    readFilesInDir(filePath, loadSong);
+                    readFilesInDir(filePath);
                 }
                 else if (stat && stat.isFile() && file.match(/\.(mp3|mp4|ogg|flac|acc|wav|)$/i)) {
                     jsmediatags.read(filePath, {
                         onSuccess: function (tag) {
-                            // console.log(tag);
                             const song = 
                             {
                                 filePath,
@@ -28,7 +32,8 @@ function readFilesInDir(dir, loadSong)  {
                                 track: tag.tags.track,
                                 genre: tag.tags.genre
                             }
-                            loadSong(song)
+                            // loadSong(song)
+                            postMessage(song);
                         },
                         onError: function (error) {
                             console.log(':(', error.type, error.info, filePath);
@@ -41,4 +46,3 @@ function readFilesInDir(dir, loadSong)  {
 
 }
 
-export default readFilesInDir;

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import SongList from './SongList';
 import libraryActions from '../actions/library';
 import songActions from '../actions/songs';
-import readFilesInDir  from '../utils/load';
+import loadWebWorker  from '../utils/loadWebWorker';
 
 const { dialog } = require('electron').remote;
 
@@ -38,9 +38,11 @@ class LoadDirs extends Component {
                 properties: ["openDirectory"]},
                 (filePath)=> {
                     this.props.setLibrary(filePath);
+                    setTimeout(() => loadWebWorker(this.props.library[0], this.props.loadSong),0);
+                    return;
             });
         }
-        setTimeout(() => readFilesInDir(this.props.library[0], this.props.loadSong),0);
+        loadWebWorker(this.props.library[0], this.props.loadSong);
     }
     
     render() {
