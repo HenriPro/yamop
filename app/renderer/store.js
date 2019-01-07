@@ -3,15 +3,15 @@ import { connectRouter, routerMiddleware, push } from 'connected-react-router';
 import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
 
-import songs from './reducers/songs'
+import songs from './reducers/songs';
 import search from './reducers/search';
-import focus from './reducers/inFocus'
-import library from './reducers/library'
+import focus from './reducers/inFocus';
+import library from './reducers/library';
 
 import songsActions from './actions/songs';
 import searchActions from './actions/search';
 import focusActions from './actions/inFocus';
-import libraryActions from './actions/library'
+import libraryActions from './actions/library';
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
@@ -47,4 +47,3 @@ export default function configureStore(initialState, routerHistory) {
 
   return createStore(rootReducer, initialState, enhancer);
 }
-

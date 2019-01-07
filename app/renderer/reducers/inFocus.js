@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import actions from '../actions/inFocus'
+import actions from '../actions/inFocus';
 
 export default handleActions(
   {

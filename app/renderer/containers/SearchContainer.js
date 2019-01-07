@@ -5,9 +5,9 @@ import searchActions from '../actions/search';
 
 const mapStateToProps = (state) => {
   return {
-    searchValue : state.search.searchValue,
-    searchTypeValue : state.search.searchTypeValue
-  }
+    searchValue: state.search.searchValue,
+    searchTypeValue: state.search.searchTypeValue,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

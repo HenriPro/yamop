@@ -46,8 +46,8 @@ app.on('ready', async () => {
     minHeight: 480,
     show: false,
     webPreferences: {
-      nodeIntegrationInWorker: true
-    }
+      nodeIntegrationInWorker: true,
+    },
   });
 
   mainWindow.loadFile(path.resolve(path.join(__dirname, '../renderer/index.html')));

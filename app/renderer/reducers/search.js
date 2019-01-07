@@ -11,7 +11,7 @@ export default handleActions(
     },
   },
   {
-    searchValue: "",
-    searchTypeValue: "searchAll",
+    searchValue: '',
+    searchTypeValue: 'searchAll',
   },
 );

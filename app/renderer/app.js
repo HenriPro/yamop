@@ -6,8 +6,6 @@ import { createMemoryHistory } from 'history';
 import routes from './routes';
 import configureStore from './store';
 
-
-
 const syncHistoryWithStore = (store, history) => {
   const { router } = store.getState();
   if (router && router.location) {
@@ -18,14 +16,13 @@ const syncHistoryWithStore = (store, history) => {
 const initialState = {
   songs: [],
   search: {
-    searchValue: "",
-    searchTypeValue: "searchAll",
-  }
+    searchValue: '',
+    searchTypeValue: 'searchAll',
+  },
 };
 const routerHistory = createMemoryHistory();
 const store = configureStore(initialState, routerHistory);
 syncHistoryWithStore(store, routerHistory);
-
 
 const rootElement = document.querySelector(document.currentScript.getAttribute('data-container'));
 
@@ -35,5 +32,3 @@ ReactDOM.render(
   </Provider>,
   rootElement,
 );
-
-
