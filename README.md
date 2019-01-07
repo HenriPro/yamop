@@ -1,10 +1,9 @@
 # YAMOP
-[
 
 YAMOP (Yet Another Music Organizer and Player)
 
 Is a an easy to use simple local music organizer and player. 
-YAMOP is cross platform, requiring only a folder containing tagged music to start.
+YAMOP is cross platform based on electron, requiring only a folder containing tagged music to start.
 
 On first load YAMOP will ask which directory to load music from. This is saved, and will not be asked for again.
 
@@ -31,4 +30,4 @@ npm run develop
 
 Dialog to rest music folder
 
-Playlist and que features 
+Playlist and queue features 
