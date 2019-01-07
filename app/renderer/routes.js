@@ -6,8 +6,10 @@ import AudioContainer from './containers/AudioContainer';
 import LoadDir from './containers/LoadDir'
 export default (
   <div>
-    <SearchContainer></SearchContainer>
-    <AudioContainer></AudioContainer>
+    <div className={'flex-row'}>
+      <SearchContainer></SearchContainer>
+      <AudioContainer></AudioContainer>
+    </div>
     <Switch>
       <Route exact path="/" component={LoadDir}/>
       <Route exact path="/loaded" component={SongList} />

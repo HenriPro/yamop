@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import search from '../utils/search';
 import focusActions from '../actions/inFocus'
 
+
+
+
 const mapStateToProps = (state) => {
     return {
         songs: state.songs,
@@ -24,7 +27,27 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class SongList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { width: 0, height: 0 };
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.whatToShow = this.whatToShow.bind(this);
+    }
 
+    componentDidMount() {
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+      
+    updateWindowDimensions() {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
+    }
+
+   
     whatToShow() {
         if (this.props.searchValue.length > 0) {
             return search(this.props.songs, this.props.searchValue, this.props.searchTypeValue);
@@ -37,28 +60,31 @@ class SongList extends Component {
         return (
             <div>
                 {this.props.songs.length > 0 &&
-                    <ReactTable
-                        showPageSizeOptions={true}
-                        columns={[{ Header: "Title", accessor: "title" },
-                        { Header: "Artist", accessor: "artist" },
-                        { Header: "Album", accessor: "album" },
-                        { Header: "Genre", accessor: "genre" },
-                        { Header: "Track", accessor: "track", maxWidth: 100 },
-                        ]}
-                        data={this.whatToShow()}
-                        getTdProps={(state, rowInfo) => {
-                            return {
-                                onClick: (e, handleOriginal) => {
-                                    console.log("It was in this row:", rowInfo.original.filePath);
-                                    this.props.createFocus(rowInfo.original);
-                                    if (handleOriginal) {
-                                        handleOriginal();
+                        <ReactTable
+                            key={5 + (this.state.height - 350 )/38}
+                            showPageSizeOptions={false}
+                            columns={[{ Header: "Title", accessor: "title" },
+                            { Header: "Artist", accessor: "artist" },
+                            { Header: "Album", accessor: "album" },
+                            { Header: "Genre", accessor: "genre" },
+                            { Header: "Track", accessor: "track", maxWidth: 100 },
+                            ]}
+                            defaultPageSize={5 + (this.state.height - 350 )/38}
+                            data={this.whatToShow()}
+                            getTdProps={(state, rowInfo) => {
+                                return {
+                                    onClick: (e, handleOriginal) => {
+                                        console.log("It was in this row:", rowInfo.original.filePath);
+                                        this.props.createFocus(rowInfo.original);
+                                        if (handleOriginal) {
+                                            handleOriginal();
+                                        }
                                     }
-                                }
-                            };
-                        }}
-                    >
-                    </ReactTable>
+                                };
+                            }}
+                        >
+                        </ReactTable>
+
                 }
 
             </div>
@@ -66,5 +92,6 @@ class SongList extends Component {
     }
 
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(SongList)

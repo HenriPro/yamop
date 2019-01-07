@@ -10,11 +10,18 @@ const mapStateToProps = (state) => {
 };
 
 function AudioContainer(props) {
+
     if (!props.focus) {
         return (<span></span>);
     }
     return (
-        <AudioPlayer filePath={props.focus.filePath} />
+        <div className={'flex-row'}>
+            <AudioPlayer filePath={props.focus.filePath} />
+            {props.focus.picture &&
+                <img className='album-art' src={URL.createObjectURL(props.focus.picture)} ></img>
+            }
+        </div>
+        
     );
 
 }

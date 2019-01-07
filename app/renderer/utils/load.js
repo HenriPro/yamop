@@ -22,6 +22,12 @@ function readFilesInDir(dir)  {
                 else if (stat && stat.isFile() && file.match(/\.(mp3|mp4|ogg|flac|acc|wav|)$/i)) {
                     jsmediatags.read(filePath, {
                         onSuccess: function (tag) {
+                            let picture;
+                            if (tag.tags.picture){
+                                const { data, type } = tag.tags.picture;
+                                const byteArray = new Uint8Array(data);
+                                picture = new Blob([byteArray], { type });
+                            }
                             const song = 
                             {
                                 filePath,
@@ -30,7 +36,9 @@ function readFilesInDir(dir)  {
                                 title: tag.tags.title,
                                 album: tag.tags.album,
                                 track: tag.tags.track,
-                                genre: tag.tags.genre
+                                genre: tag.tags.genre,
+                                picture: picture
+
                             }
                             // loadSong(song)
                             postMessage(song);
