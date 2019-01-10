@@ -2,9 +2,8 @@ import React from 'react';
 
 export default function Search(props) {
   return (
-    <h3>
-      <span>
-        Search
+    <div className={"flex-row"}>
+      <h3 className={"search-title"}>Search</h3>
         <input
           type="text"
           onChange={(e) => props.handleSearchInput(e.target.value)}
@@ -18,7 +17,6 @@ export default function Search(props) {
           <option value="album">Album</option>
           <option value="genre">Genre</option>
         </select>
-      </span>
-    </h3>
+    </div>
   );
 }

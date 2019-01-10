@@ -55,7 +55,7 @@ class SongList extends Component {
       <div>
         {this.props.songs.length > 0 && (
           <ReactTable
-            key={5 + (this.state.height - 350) / 38}
+            key={this.state.height}
             showPageSizeOptions={false}
             columns={[
               { Header: 'Title', accessor: 'title' },
@@ -64,7 +64,7 @@ class SongList extends Component {
               { Header: 'Genre', accessor: 'genre' },
               { Header: 'Track', accessor: 'track', maxWidth: 100 },
             ]}
-            defaultPageSize={5 + (this.state.height - 350) / 38}
+            defaultPageSize={5 + (this.state.height - 380) / 32.7}
             data={this.whatToShow()}
             getTdProps={(state, rowInfo) => {
               return {

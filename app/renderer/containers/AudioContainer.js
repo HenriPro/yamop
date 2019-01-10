@@ -13,12 +13,9 @@ function AudioContainer(props) {
     return <span />;
   }
   return (
-    <div className={'flex-row'}>
-      <AudioPlayer filePath={props.focus.filePath} />
-      {props.focus.picture && (
-        <img className="album-art" src={URL.createObjectURL(props.focus.picture)} />
-      )}
-    </div>
+
+      <AudioPlayer filePath={props.focus.filePath} focus={props.focus} onEnded={()=> console.log('songended')} />
+     
   );
 }
 

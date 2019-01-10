@@ -6,7 +6,7 @@ import AudioContainer from './containers/AudioContainer';
 import LoadDir from './containers/LoadDir';
 export default (
   <div>
-    <div className={'flex-row'}>
+    <div className={'flex-row top-bar'}>
       <SearchContainer />
       <AudioContainer />
     </div>

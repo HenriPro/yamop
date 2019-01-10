@@ -1,14 +1,40 @@
+
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 30px;
+    
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.top-bar {
+    height: 110px;
+}
+
+.search-title {
+    margin: 10px;
+}
+
 .album-art {
     height: 100px;
     width: auto;
 }
 
-.flex-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    align-items: center;
-    padding-left: 30px;
-    padding-right: 30px;
-    
+.audio-detail {
+    height: 100px;
+}
+
+.audio-detail * {
+    height: 20px;
+    margin: 5px;
 }
